@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "organization": "Redis",
+  "date": "January 2026",
+  "abstract": "Patterns and best practices for building AI and ML applications with Redis as a vector database. Covers vector storage and indexing, similarity search, RAG implementation, semantic caching, LLM memory management, and framework integration. Each rule includes detailed explanations with incorrect vs. correct code examples.",
+  "references": [
+    "https://redis.io/docs/latest/develop/ai/",
+    "https://redis.io/docs/latest/develop/interact/search-and-query/query/vector-search/",
+    "https://redis.io/docs/latest/develop/get-started/rag/",
+    "https://redis.io/docs/latest/integrate/redisvl/"
+  ]
+}

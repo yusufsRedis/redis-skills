@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "organization": "Redis",
+  "date": "January 2026",
+  "abstract": "Patterns and best practices for deploying, securing, and operating Redis in production. Covers Redis Cloud, Redis Software, Redis Kubernetes, and Redis Open Source. Includes deployment, security, high availability, clustering, persistence, monitoring, backup, and data integration with RDI.",
+  "references": [
+    "https://redis.io/docs/latest/operate/",
+    "https://redis.io/docs/latest/operate/rc/",
+    "https://redis.io/docs/latest/operate/rs/",
+    "https://redis.io/docs/latest/operate/kubernetes/",
+    "https://redis.io/docs/latest/operate/oss_and_stack/"
+  ]
+}
