@@ -5,11 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "npx tsx src/build.ts --all",
-    "build-best-practices": "npx tsx src/build.ts --skill=redis-best-practices",
-    "build-ai": "npx tsx src/build.ts --skill=redis-ai-patterns",
-    "build-infrastructure": "npx tsx src/build.ts --skill=redis-infrastructure",
     "validate": "npx tsx src/validate.ts",
-    "dev": "npm run build && npm run validate"
+    "dev": "npm run validate && npm run build"
   },
   "keywords": [
     "redis",

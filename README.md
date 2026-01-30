@@ -8,65 +8,67 @@ Skills follow the [Agent Skills](https://agentskills.io/) format.
 
 ### redis-best-practices
 
-Development patterns and best practices for building applications with Redis.
+Redis performance optimization and best practices. Contains 29 rules across 11 categories, prioritized by impact.
 
 **Use when:**
 - Writing code that interacts with Redis
 - Choosing data structures or designing key schemas
-- Implementing caching strategies
-- Building queues, leaderboards, or rate limiters
+- Using Redis Query Engine (FT.CREATE, FT.SEARCH, FT.AGGREGATE)
+- Building vector search or RAG applications with RedisVL
+- Implementing semantic caching with LangCache
+- Optimizing Redis performance and memory usage
 
-**Categories:** Data Structures, Key Design, Commands & Patterns, Connection Management, Caching Strategies, Common Use Cases, Pub/Sub & Streams, JSON & Search, Memory Optimization, Error Handling
-
----
-
-### redis-ai-patterns
-
-Patterns for building AI applications with Redis as a vector database.
-
-**Use when:**
-- Implementing vector search or similarity queries
-- Building RAG (Retrieval Augmented Generation) pipelines
-- Adding semantic caching for LLM responses
-- Managing LLM conversation memory
-
-**Categories:** Vector Storage & Indexing, Similarity Search, RAG Implementation, Semantic Caching, LLM Memory, AI Agents, Embeddings, Framework Integration, Performance Tuning
-
----
-
-### redis-infrastructure
-
-Patterns for deploying, securing, and operating Redis in production.
-
-**Use when:**
-- Deploying Redis (Cloud, Software, Kubernetes, or OSS)
-- Configuring security, HA, or clustering
-- Setting up monitoring and backups
-- Integrating data with RDI
-
-**Products covered:** Redis Cloud, Redis Software, Redis Kubernetes, Redis OSS, RDI
-
-**Categories:** Deployment, Configuration, Security, High Availability, Clustering, Replication, Persistence, Monitoring, Backup & Recovery, Data Integration
-
----
+**Categories covered:**
+- Data Structures & Keys (High)
+- Memory & Expiration (High)
+- Connection & Performance (High)
+- JSON Documents (Medium)
+- Redis Query Engine (High)
+- Vector Search & RedisVL (High)
+- Semantic Caching (Medium)
+- Streams & Pub/Sub (Medium)
+- Clustering & Replication (Medium)
+- Security (High)
+- Observability (Medium)
 
 ## Installation
 
 ```bash
-npx add-skill redis/redis-agent-skills
+npx skills add redis/redis-agent-skills
 ```
+
+## Usage
+
+Skills are automatically available once installed. The agent will use them when relevant tasks are detected.
+
+**Examples:**
+```
+Help me optimize this Redis query
+```
+```
+What data structure should I use for a leaderboard?
+```
+```
+Review my Redis connection handling
+```
+
+## Skill Structure
+
+Each skill contains:
+- `SKILL.md` - Instructions for the agent
+- `AGENTS.md` - Compiled rules (generated for rule-based skills)
+- `rules/` - Individual rule files (for rule-based skills)
+- `scripts/` - Helper scripts for automation (optional)
 
 ## Building
 
-From the build package directory:
+For rule-based skills, build the compiled AGENTS.md:
 
 ```bash
 cd packages/redis-best-practices-build
 npm install
-npm run build              # Build all skills
-npm run build-best-practices  # Build only redis-best-practices
-npm run build-ai              # Build only redis-ai-patterns
-npm run build-infrastructure  # Build only redis-infrastructure
+npm run validate  # Validate rule files
+npm run build     # Build AGENTS.md
 ```
 
 ## License

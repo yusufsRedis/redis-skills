@@ -40,14 +40,16 @@ function validateRule(rule: Rule, file: string): ValidationError[] {
     const hasBad = codeExamples.some(e =>
       e.label.toLowerCase().includes('incorrect') ||
       e.label.toLowerCase().includes('wrong') ||
-      e.label.toLowerCase().includes('bad')
+      e.label.toLowerCase().includes('bad') ||
+      e.label.toLowerCase().includes('avoid')
     )
     const hasGood = codeExamples.some(e =>
       e.label.toLowerCase().includes('correct') ||
       e.label.toLowerCase().includes('good') ||
       e.label.toLowerCase().includes('usage') ||
       e.label.toLowerCase().includes('implementation') ||
-      e.label.toLowerCase().includes('example')
+      e.label.toLowerCase().includes('example') ||
+      e.label.toLowerCase().includes('recommended')
     )
 
     if (codeExamples.length === 0) {

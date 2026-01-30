@@ -122,10 +122,14 @@ export async function parseRuleFile(
       continue
     }
 
-    // Example label (Incorrect, Correct, Example, Usage, Implementation, etc.)
-    // Match pattern: **Label:** or **Label (description):** at end of line
-    // This distinguishes example labels from inline bold text like "**Trade-off:** some text"
-    const labelMatch = line.match(/^\*\*([^:]+?):\*?\*?$/)
+    // Example label (Incorrect, Correct, Example, Usage, Implementation, Recommended, Avoid, etc.)
+    // Match pattern: **Label:** or **Label (description):** with optional trailing text
+    // Supports formats:
+    //   **Incorrect:**
+    //   **Incorrect (O(n) lookup):**
+    //   **Recommended:** Use a connection pool.
+    //   **Avoid:** Creating new connections.
+    const labelMatch = line.match(/^\*\*([^:]+?):\*?\*?\s*(.*)$/)
     if (labelMatch) {
       // Save previous example if it exists
       if (currentExample) {
@@ -139,14 +143,25 @@ export async function parseRuleFile(
       hasCodeBlockForCurrentExample = false
 
       const fullLabel = labelMatch[1].trim()
+      const trailingText = labelMatch[2] ? labelMatch[2].trim() : ''
+
       // Try to extract description from parentheses if present (handles simple cases)
       // For nested parentheses like "Incorrect (O(n) per lookup)", we keep the full label
       const descMatch = fullLabel.match(
         /^([A-Za-z]+(?:\s+[A-Za-z]+)*)\s*\(([^()]+)\)$/
       )
+
+      // Description can come from parentheses in label OR trailing text after colon
+      let description: string | undefined
+      if (descMatch) {
+        description = descMatch[2].trim()
+      } else if (trailingText) {
+        description = trailingText
+      }
+
       currentExample = {
         label: descMatch ? descMatch[1].trim() : fullLabel,
-        description: descMatch ? descMatch[2].trim() : undefined,
+        description,
         code: '',
         language: codeBlockLanguage,
       }

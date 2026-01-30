@@ -1,84 +1,50 @@
-# Sections
+# Section Definitions
 
-This file defines all sections, their ordering, impact levels, and descriptions.
-The section ID (in parentheses) is the filename prefix used to group rules.
-
----
-
-## 1. Data Structures (ds)
-
-**Impact:** CRITICAL
-
-**Description:** Choosing the correct Redis data structure is fundamental to performance and functionality. Redis offers Strings, Lists, Sets, Sorted Sets, Hashes, Streams, and more. Each has specific time complexities and memory characteristics. Using the wrong type leads to inefficient operations, excessive memory usage, and poor scalability.
+This file defines the rule categories for Redis best practices. Rules are automatically assigned to sections based on their filename prefix.
 
 ---
 
-## 2. Key Design (key)
-
-**Impact:** CRITICAL
-
-**Description:** Well-designed keys improve code readability, enable efficient SCAN operations, prevent key collisions, and support logical data organization. Key naming conventions (like colon-separated namespaces) and TTL strategies directly impact maintainability and memory management.
-
----
-
-## 3. Commands & Patterns (cmd)
-
+## 1. Data Structures & Keys (data)
 **Impact:** HIGH
+**Description:** Choosing the right Redis data type and key naming conventions. Foundation for efficient Redis usage.
 
-**Description:** Using optimal Redis commands and patterns reduces round trips, prevents blocking operations, and leverages Redis's atomic capabilities. Covers pipelining, transactions (MULTI/EXEC), Lua scripting, and batch operations.
-
----
-
-## 4. Connection Management (conn)
-
+## 2. Memory & Expiration (ram)
 **Impact:** HIGH
+**Description:** Memory limits, eviction policies, TTL strategies, and memory optimization techniques.
 
-**Description:** Redis is single-threaded for command execution, making connection handling critical. Connection pooling, pipelining, proper client configuration, and reconnection strategies prevent resource exhaustion and maximize throughput.
-
----
-
-## 5. Caching Strategies (cache)
-
+## 3. Connection & Performance (conn)
 **Impact:** HIGH
+**Description:** Connection pooling, pipelining, timeouts, and avoiding blocking commands.
 
-**Description:** Effective caching patterns maximize hit rates and minimize stale data. Covers cache-aside (lazy loading), write-through, write-behind, cache invalidation strategies, TTL design, and stampede prevention techniques.
-
----
-
-## 6. Common Use Cases (use)
-
-**Impact:** MEDIUM-HIGH
-
-**Description:** Redis excels at specific use cases beyond simple key-value storage. Patterns for session management, task queues, leaderboards, rate limiting, counters, and distributed locks.
-
----
-
-## 7. Pub/Sub & Streams (msg)
-
+## 4. JSON Documents (json)
 **Impact:** MEDIUM
+**Description:** Using Redis JSON for nested structures, partial updates, and integration with RQE.
 
-**Description:** Redis provides powerful messaging capabilities. Pub/Sub enables fire-and-forget broadcasting, while Streams offer persistent, replayable event logs with consumer groups for reliable processing.
+## 5. Redis Query Engine (rqe)
+**Impact:** HIGH
+**Description:** FT.CREATE, FT.SEARCH, FT.AGGREGATE, index design, field types, and query optimization.
 
----
+## 6. Vector Search & RedisVL (vector)
+**Impact:** HIGH
+**Description:** Vector indexes, HNSW vs FLAT, hybrid search, and RAG patterns with RedisVL.
 
-## 8. JSON & Search (stack)
-
+## 7. Semantic Caching (semantic-cache)
 **Impact:** MEDIUM
+**Description:** LangCache for LLM response caching, distance thresholds, and cache strategies.
 
-**Description:** Redis Stack extends core Redis with JSON document support and full-text search. Covers JSONPath operations, indexing strategies, and query patterns for document-oriented use cases.
-
----
-
-## 9. Memory Optimization (memory)
-
+## 8. Streams & Pub/Sub (stream)
 **Impact:** MEDIUM
+**Description:** Choosing between Streams and Pub/Sub for messaging patterns.
 
-**Description:** Redis stores all data in memory, making optimization essential. Techniques include choosing memory-efficient encodings, setting appropriate maxmemory policies, using TTLs effectively, and monitoring fragmentation.
+## 9. Clustering & Replication (cluster)
+**Impact:** MEDIUM
+**Description:** Hash tags for key colocation, read replicas, and cluster-aware patterns.
 
----
+## 10. Security (security)
+**Impact:** HIGH
+**Description:** Authentication, ACLs, TLS, and network security.
 
-## 10. Error Handling & Resilience (resilience)
+## 11. Observability (observe)
+**Impact:** MEDIUM
+**Description:** SLOWLOG, INFO, MEMORY commands, monitoring metrics, and Redis Insight.
 
-**Impact:** LOW-MEDIUM
-
-**Description:** Production Redis applications need graceful error handling. Covers retry strategies, circuit breakers, timeout configuration, connection error handling, and degradation patterns when Redis is unavailable.

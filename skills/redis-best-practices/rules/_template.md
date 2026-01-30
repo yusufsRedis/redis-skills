@@ -1,26 +1,31 @@
 ---
-title: Rule Title Here
+title: Clear, Action-Oriented Title (e.g., "Use Connection Pooling")
 impact: MEDIUM
-impactDescription: Optional description of impact (e.g., "reduces memory by 50%")
-tags: tag1, tag2, tag3
+impactDescription: Brief quantified benefit (e.g., "Reduces connection overhead by 10x")
+tags: relevant, keywords, here
 ---
 
-## Rule Title Here
+## [Rule Title]
 
-Brief explanation of the rule and why it matters for Redis applications.
+[1-2 sentence explanation of the problem and why it matters. Focus on practical impact.]
 
-**Incorrect (description of what's wrong):**
-
-```python
-# Bad code example here
-# Include comments explaining the issue
-```
-
-**Correct (description of what's right):**
+**Correct:** Description of the good approach.
 
 ```python
-# Good code example here
-# Include comments explaining the improvement
+# Comment explaining why this is better
+pool = ConnectionPool(host='localhost', max_connections=50)
+redis = Redis(connection_pool=pool)  # Reuse connections
+result = redis.get('key')
 ```
 
-Reference: [Redis Documentation](https://redis.io/docs/)
+**Incorrect:** Description of the problematic approach.
+
+```python
+# Comment explaining what makes this problematic
+redis = Redis(host='localhost')  # New connection per request
+result = redis.get('key')
+```
+
+[Optional: Additional context, edge cases, or trade-offs]
+
+Reference: [Redis Docs](https://redis.io/docs/)

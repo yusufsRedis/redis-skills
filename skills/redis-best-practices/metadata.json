@@ -1,19 +1,14 @@
 {
   "version": "1.0.0",
-  "organization": "Redis",
+  "organization": "Redis, Inc.",
   "date": "January 2026",
-  "abstract": "Comprehensive development patterns and best practices for building applications with Redis, designed for AI agents and LLMs. Contains 29 rules across 10 categories, prioritized by impact from critical (data structures, key design) to operational (resilience). Each rule includes detailed explanations, real-world examples comparing incorrect vs. correct implementations using redis-py, and links to official Redis documentation.",
+  "abstract": "Best practices for Redis including data structures, memory management, Redis Query Engine (RQE), vector search with RedisVL, semantic caching with LangCache, and performance optimization. Optimized for AI agents and LLMs.",
   "references": [
-    "https://redis.io/docs/latest/develop/",
-    "https://redis.io/docs/latest/develop/data-types/",
-    "https://redis.io/docs/latest/develop/data-types/hashes/",
-    "https://redis.io/docs/latest/develop/data-types/sorted-sets/",
-    "https://redis.io/docs/latest/develop/data-types/streams/",
-    "https://redis.io/docs/latest/develop/use/pipelining/",
-    "https://redis.io/docs/latest/develop/use/patterns/distributed-locks/",
-    "https://redis.io/docs/latest/develop/clients/",
-    "https://redis.io/docs/latest/develop/clients/pools-and-muxing/",
+    "https://redis.io/docs/",
     "https://redis.io/docs/latest/develop/interact/search-and-query/",
-    "https://redis.io/docs/latest/develop/data-types/json/"
+    "https://redis.io/docs/latest/develop/clients/redisvl/",
+    "https://redis.io/docs/latest/develop/ai/langcache/",
+    "https://redis.io/commands/"
   ]
 }
+

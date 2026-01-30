@@ -1,6 +1,6 @@
 ---
 name: redis-best-practices
-description: Redis development patterns and best practices. Use when writing, reviewing, or refactoring application code that interacts with Redis. Triggers on tasks involving Redis, caching, session storage, pub/sub, queues, leaderboards, rate limiting, key-value operations, or data structure selection.
+description: Redis performance optimization and best practices. Use this skill when working with Redis data structures, Redis Query Engine (RQE), vector search with RedisVL, semantic caching with LangCache, or optimizing Redis performance.
 license: MIT
 metadata:
   author: redis
@@ -9,109 +9,111 @@ metadata:
 
 # Redis Best Practices
 
-Development patterns and best practices for building applications with Redis. Contains rules across multiple categories, prioritized by impact to guide code generation and review.
+Comprehensive performance optimization guide for Redis, including Redis Query Engine, vector search, and semantic caching. Contains 29 rules across 11 categories, prioritized by impact to guide automated optimization and code generation.
 
 ## When to Apply
 
 Reference these guidelines when:
-- Writing new code that interacts with Redis
-- Choosing data structures for your use case
-- Designing key naming conventions
-- Implementing caching strategies
-- Building queues, leaderboards, or rate limiters
-- Optimizing connection handling
-- Working with pub/sub or streams
+- Designing Redis data models and key structures
+- Implementing caching, sessions, or real-time features
+- Using Redis Query Engine (FT.CREATE, FT.SEARCH, FT.AGGREGATE)
+- Building vector search or RAG applications with RedisVL
+- Implementing semantic caching with LangCache
+- Optimizing Redis performance and memory usage
 
 ## Rule Categories by Priority
 
 | Priority | Category | Impact | Prefix |
 |----------|----------|--------|--------|
-| 1 | Data Structures | CRITICAL | `ds-` |
-| 2 | Key Design | CRITICAL | `key-` |
-| 3 | Commands & Patterns | HIGH | `cmd-` |
-| 4 | Connection Management | HIGH | `conn-` |
-| 5 | Caching Strategies | HIGH | `cache-` |
-| 6 | Common Use Cases | MEDIUM-HIGH | `use-` |
-| 7 | Pub/Sub & Streams | MEDIUM | `msg-` |
-| 8 | JSON & Search | MEDIUM | `stack-` |
-| 9 | Memory Optimization | MEDIUM | `memory-` |
-| 10 | Error Handling & Resilience | LOW-MEDIUM | `resilience-` |
+| 1 | Data Structures & Keys | HIGH | `data-` |
+| 2 | Memory & Expiration | HIGH | `ram-` |
+| 3 | Connection & Performance | HIGH | `conn-` |
+| 4 | JSON Documents | MEDIUM | `json-` |
+| 5 | Redis Query Engine | HIGH | `rqe-` |
+| 6 | Vector Search & RedisVL | HIGH | `vector-` |
+| 7 | Semantic Caching | MEDIUM | `semantic-cache-` |
+| 8 | Streams & Pub/Sub | MEDIUM | `stream-` |
+| 9 | Clustering & Replication | MEDIUM | `cluster-` |
+| 10 | Security | HIGH | `security-` |
+| 11 | Observability | MEDIUM | `observe-` |
 
 ## Quick Reference
 
-### 1. Data Structures (CRITICAL)
+### 1. Data Structures & Keys (HIGH)
 
-- `ds-use-hashes-for-objects` - Store related fields in hashes for 10x memory savings
-- `ds-choose-sets-for-uniqueness` - Use sets for unique collections with O(1) membership
-- `ds-sorted-sets-for-rankings` - Use sorted sets for leaderboards and ranked data
-- `ds-lists-for-queues` - Use lists for FIFO/LIFO queues
-- `ds-strings-for-counters` - Use INCR/DECR for atomic counters
-- `ds-use-hyperloglog-for-cardinality` - Count unique items with 12KB fixed memory
+- `data-choose-structure` - Choose the Right Data Structure
+- `data-key-naming` - Use Consistent Key Naming Conventions
 
-### 2. Key Design (CRITICAL)
+### 2. Memory & Expiration (HIGH)
 
-- `key-use-colons-for-namespacing` - Use colons to namespace keys (e.g., user:1000:profile)
-- `key-set-ttl-on-cache-keys` - Always set expiration on cache keys
-- `key-avoid-large-keys` - Keep keys under 1KB, values under 100KB
-- `key-use-scan-not-keys` - Use SCAN instead of KEYS in production
+- `ram-limits` - Configure Memory Limits and Eviction Policies
+- `ram-ttl` - Set TTL on Cache Keys
 
-### 3. Commands & Patterns (HIGH)
+### 3. Connection & Performance (HIGH)
 
-- `cmd-use-pipelining-for-bulk` - Pipeline commands to reduce network round trips
-- `cmd-use-multi-exec-for-atomicity` - Use MULTI/EXEC for atomic transactions
-- `cmd-use-lua-for-complex-atomicity` - Use Lua scripts for complex atomic operations
-- `cmd-use-mget-mset-for-batches` - Use MGET/MSET for batch key operations
+- `conn-blocking` - Avoid Slow Commands in Production
+- `conn-pipelining` - Use Pipelining for Bulk Operations
+- `conn-pooling` - Use Connection Pooling or Multiplexing
+- `conn-timeouts` - Configure Connection Timeouts
 
-### 4. Connection Management (HIGH)
+### 4. JSON Documents (MEDIUM)
 
-- `conn-use-connection-pooling` - Use connection pools to avoid exhaustion
-- `conn-configure-timeouts` - Set socket, connect, and command timeouts
+- `json-partial-updates` - Use JSON Paths for Partial Updates
+- `json-vs-hash` - Choose JSON vs Hash Appropriately
 
-### 5. Caching Strategies (HIGH)
+### 5. Redis Query Engine (HIGH)
 
-- `cache-use-cache-aside-pattern` - Implement cache-aside (lazy loading) pattern
-- `cache-prevent-cache-stampede` - Use locking or probabilistic refresh to prevent stampedes
+- `rqe-dialect` - Use DIALECT 2 for Query Syntax
+- `rqe-field-types` - Choose the Correct Field Type
+- `rqe-index-creation` - Index Only Fields You Query
+- `rqe-index-management` - Manage Indexes for Zero-Downtime Updates
+- `rqe-query-optimization` - Write Efficient Queries
 
-### 6. Common Use Cases (MEDIUM-HIGH)
+### 6. Vector Search & RedisVL (HIGH)
 
-- `use-distributed-locks-safely` - Implement locks with unique tokens and TTL
-- `use-rate-limiting-patterns` - Use sliding window or token bucket algorithms
-- `use-sessions-with-expiration` - Store sessions in hashes with TTL
+- `vector-algorithm-choice` - Choose HNSW vs FLAT Based on Requirements
+- `vector-hybrid-search` - Use Hybrid Search for Better Results
+- `vector-index-creation` - Configure Vector Indexes Properly
+- `vector-rag-pattern` - Implement RAG Pattern Correctly
 
-### 7. Pub/Sub & Streams (MEDIUM)
+### 7. Semantic Caching (MEDIUM)
 
-- `msg-use-pubsub-for-broadcast` - Use Pub/Sub for ephemeral fan-out messaging
-- `msg-use-streams-for-reliable-messaging` - Use Streams for persistent, reliable queues
+- `semantic-cache-best-practices` - Configure Semantic Cache Properly
+- `semantic-cache-langcache-usage` - Use LangCache for LLM Response Caching
 
-### 8. JSON & Search (MEDIUM)
+### 8. Streams & Pub/Sub (MEDIUM)
 
-- `stack-use-json-for-documents` - Use RedisJSON for nested document storage
-- `stack-use-search-for-queries` - Use Redis Search for secondary indexes and full-text search
+- `stream-choosing-pattern` - Choose Streams vs Pub/Sub Appropriately
 
-### 9. Memory Optimization (MEDIUM)
+### 9. Clustering & Replication (MEDIUM)
 
-- `memory-use-efficient-encodings` - Keep data small to use ziplist/listpack encoding
-- `memory-monitor-and-set-limits` - Set maxmemory and appropriate eviction policy
+- `cluster-hash-tags` - Use Hash Tags for Multi-Key Operations
+- `cluster-read-replicas` - Use Read Replicas for Read-Heavy Workloads
 
-### 10. Error Handling & Resilience (LOW-MEDIUM)
+### 10. Security (HIGH)
 
-- `resilience-handle-connection-errors` - Implement retries with exponential backoff
-- `resilience-use-health-checks` - Monitor Redis health with PING and INFO
+- `security-acls` - Use ACLs for Fine-Grained Access Control
+- `security-auth` - Always Use Authentication in Production
+- `security-network` - Secure Network Access
+
+### 11. Observability (MEDIUM)
+
+- `observe-commands` - Use Observability Commands for Debugging
+- `observe-metrics` - Monitor Key Redis Metrics
 
 ## How to Use
 
 Read individual rule files for detailed explanations and code examples:
 
 ```
-rules/ds-use-hashes-for-objects.md
-rules/key-use-colons-for-namespacing.md
-rules/conn-use-connection-pooling.md
+rules/rqe-index-creation.md
+rules/vector-rag-pattern.md
 ```
 
 Each rule file contains:
 - Brief explanation of why it matters
-- Incorrect code example with explanation
-- Correct code example with explanation
+- Incorrect example with explanation
+- Correct example with explanation
 - Additional context and references
 
 ## Full Compiled Document
